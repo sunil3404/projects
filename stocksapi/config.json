@@ -1,0 +1,10 @@
+{   
+    "imp_urls" : {
+        "url_screener" : "https://www.screener.in/company/{}/consolidated/"
+    },
+    "companies" : [
+        "RELIANCE",
+        "ZOMATO",
+        "CIPLA"
+    ]
+}
