@@ -9,6 +9,5 @@ class Company(BaseModel):
 
 class Companies(BaseModel):
     name : str
-
     class Config:
         orm_mode = True

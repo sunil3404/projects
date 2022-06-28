@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 import database
 import models
 from sqlalchemy.orm import Session
-from schemas import company
+from schemas.company import Companies, Company
 from repository import company_stocks
 
 router = APIRouter(
@@ -13,8 +13,8 @@ router = APIRouter(
 )
 
 
-@router.post("/", response_model=company.Companies)
-def company(request: company.Company, db: Session = Depends(database.get_db)):
+@router.post("/", response_model=Companies)
+def company(request: Company, db: Session = Depends(database.get_db)):
     company = db.query(models.Company).filter(
         models.Company.name == request.name).first()
     if company:
@@ -23,6 +23,14 @@ def company(request: company.Company, db: Session = Depends(database.get_db)):
     else:
         company_stocks.add_company(request, db)
         return request
+
+@router.get("/company_names")
+def company_names(db: Session = Depends(database.get_db)):
+    companies = db.query(models.Company).all()
+    company_details = []
+    for company in companies:
+        company_details.append(company.name)
+    return {"companies" : company_details}
 
 @router.delete("/{comp_name}", status_code=status.HTTP_202_ACCEPTED)
 def delete_record(comp_name: str, db: Session = Depends(database.get_db)):
