@@ -2,6 +2,11 @@ from bs4 import BeautifulSoup as bs
 from matplotlib.pyplot import table
 import requests
 import json, uuid
+from models import Stocks_H, Stocks_D
+from datetime import datetime
+import database
+from database import engine, Base
+import re
 
 class Economic_Times:
     def __init__(self, url: str) -> None:
@@ -94,3 +99,46 @@ def get_content(soup : str, company_id: int):
         return stock_response
     except Exception as ex:
         print(ex)
+
+def _remove_special_chars(data):
+    #import pdb; pdb.set_trace()
+    data = data.replace(",", "")
+    rs_char = re.findall("\d+\W\d+", data)
+    if not rs_char:
+        data = re.findall("\d+", data)
+        return float(data[0]) if data else 0
+    else:
+        try:
+            rs_char = float(rs_char[0])
+            return rs_char
+        except IndexError as ie:
+            return 0
+
+def _stock_tables(stock_details):
+    numerical_details = stock_details['stock_details']
+    try:
+        return {
+            "title" : stock_details['stock_title'],  
+            "market_cap" : _remove_special_chars(numerical_details['market_cap']),
+            "curr_price" : _remove_special_chars(numerical_details['current_price']),
+            "high" :  _remove_special_chars(numerical_details['high/low'].split("/")[0]),
+            "low" :   _remove_special_chars(numerical_details['high/low'].split("/")[1]),
+            "stock_p_e" : _remove_special_chars(numerical_details['stock p/e']),
+            "book_value" : _remove_special_chars(numerical_details['book_value']),
+            "dividend" : _remove_special_chars(numerical_details['dividend_yield']),
+            "roce" : _remove_special_chars(numerical_details['roce']),
+            "roe" : _remove_special_chars(numerical_details['roe']),
+            "face_value": _remove_special_chars(numerical_details["face_value"]),
+            "company_id" :  stock_details["company_id"]
+        }
+    except Exception as ex:
+        print(ex)
+
+def update_stock_db(stock_details, db):
+    for stock in stock_details:
+        _stock_table_data = _stock_tables(stock)
+        print(_stock_table_data)
+        stocks_d = Stocks_D(**_stock_table_data)
+
+        db.add(stocks_d)
+        db.commit()

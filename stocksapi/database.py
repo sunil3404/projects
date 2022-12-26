@@ -1,9 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from urllib.parse import quote
 
-# SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:root@localhost/stocks"
+#SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:%s@localhost/stocks" % quote('Bstommy@1')
 #SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:root@localhost/stocks"
 
 engine = create_engine(

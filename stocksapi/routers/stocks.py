@@ -5,10 +5,13 @@ import database
 from sqlalchemy.orm import Session
 from models import Company
 
-with open("C:\\Users\\skumarb4\\Documents\\Projects\\webscraping\\stocksapi\\config.json", "r") as config:
+#with open("C:\\Users\\skumarb4\\Documents\\Projects\\webscraping\\stocksapi\\config.json", "r") as config:
+ #   conf = json.load(config)
+
+with open("/home/sunil/projects/stocksapi/config.json", "r") as config:
     conf = json.load(config)
 
-# companies = ["ZOMATO","3MINDIA", "RELIANCE"]
+companies = ["ZOMATO","3MINDIA", "RELIANCE"]
 
 router =  APIRouter(
     
@@ -24,6 +27,7 @@ def stocks(db :  Session = Depends(database.get_db)):
         content = bsk.raw_content(conf['imp_urls']['url_screener'].format(company.name))
         stock_details = bsk.get_content(content, company.id)
         all_stocks.append(stock_details)
+    bsk.update_stock_db(all_stocks, db)
     return {"stock_details" : all_stocks}
 
 @router.get("/{stock_name}")
