@@ -1,0 +1,6 @@
+uvicorn
+pandas
+sqlalchemy
+numpy
+fastapi
+passlib

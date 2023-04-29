@@ -1,0 +1,56 @@
+﻿Create Table Student (
+
+	id Int PRIMARY_KEY,
+	firstname varchar(200),
+	lastname varchar(200),
+	gender varchar(20),
+	age Int,
+	date_of_joinig Date,
+	perc_marks double,
+	tution_fees double,
+	
+	dept_id int foreign key references Department(id)
+)
+
+create table Department(
+
+	id Int primary_key,
+	name varchar(200),
+	alias varchar(20),
+	course_length int,
+	
+	hod_id int foreign key references Teachers(id)
+	college_id foreign key references College(id)
+)
+
+create table Teachers (
+
+	id int primary key
+	name varchar(200),
+	designation varchar(200),
+	date_of_joining Date,
+	is_hod boolean,
+	
+	dept_id int foreign key references Deparment(id)
+	college_id foreign key references College(id)
+)
+
+create table college(
+
+	id int primary key,
+	name varchar(100) not null unque,
+	university varchar(250) default VTU
+	date_of_inception Date,
+	location varchar(100),
+)
+
+create table SemesterMarks (
+
+	id int not null
+	total_marks int
+	student_marks int
+	student_id int foreign key references Student(id)
+
+)
+
+
