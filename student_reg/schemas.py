@@ -67,3 +67,13 @@ class ShowUser(BaseModel):
     post : List[Post] = []
     class Config:
         orm_mode = True
+
+class Parent_Show(BaseModel):
+    pname : str
+    class Config:
+        orm_mode = True
+
+class Child_Show(BaseModel):
+    parent_id : int
+    class Config:
+        orm_mode = True
