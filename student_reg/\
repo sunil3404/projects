@@ -69,39 +69,22 @@ class Posts(Base):
 
 
 
-class Parent(Base):
-    __tablename__ = "parent"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    pname = Column(String)
-    children = relationship(
-        "Child",
-        back_populates="parent",
-        cascade="all, delete",
-        passive_deletes=True,
-    )
-
-
 class Child(Base):
+
     __tablename__ = "child"
+
     child_id = Column(Integer, primary_key=True, autoincrement=True)
-    parent_id = Column(Integer, ForeignKey("parent.id", ondelete="CASCADE"))
+    cname = Column(String)
+    p_id =  Column(Integer, ForeignKey("parent.parent_id", ondelete="CASCADE"))
+
     parent = relationship("Parent", back_populates="children")
-#class Child(Base):
-#
-#    __tablename__ = "child"
-#
-#    child_id = Column(Integer, primary_key=True, autoincrement=True)
-#    cname = Column(String)
-#    p_id =  Column(Integer, ForeignKey("parent.parent_id", ondelete="CASCADE"))
-#
-#    parent = relationship("Parent", back_populates="children")
-#
-#class Parent(Base):
-#
-#    __tablename__ = "parent"
-#
-#    parent_id = Column(Integer, primary_key=True, autoincrement=True)
-#    pname = Column(String)
-#
-#    children = relationship("Child", back_populates="parent", cascade="all,delete", passive_deletes=True)
-#
+
+class Parent(Base):
+
+    __tablename__ = "parent"
+
+    parent_id = Column(Integer, primary_key=True, autoincrement=True)
+    pname = Column(String)
+
+    children = relationship("Child", back_populates="parent", cascade="all,delete", passive_deletes=True)
+

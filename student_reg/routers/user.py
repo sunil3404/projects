@@ -55,4 +55,4 @@ def delete_user(user_id, db : Session = Depends(database.get_db)):
     db.query(User).filter(User.user_id == user_id).\
       delete(synchronize_session=False)
     db.commit()
-    return "User deleted successfully"
+    return f"User {user_id}deleted successfully"

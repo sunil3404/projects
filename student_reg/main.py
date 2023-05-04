@@ -1,6 +1,15 @@
 from fastapi import FastAPI
 from fastapi import APIRouter
-from routers import stud, dept, staff, user, post
+from routers import (
+        stud, 
+        dept, 
+        staff, 
+        user, 
+        post,
+        parent,
+        child
+        )
+
 from database import engine
 import models, schemas
 import uvicorn
@@ -33,6 +42,15 @@ app.include_router(user.router,
 app.include_router(post.router,
     prefix = '/post',
     tags = ['Posts']               
+    )
+
+app.include_router(parent.router,
+    prefix = '/parent',
+    tags = ['Parent']               
+    )
+app.include_router(child.router,
+    prefix = '/child',
+    tags = ['Child']               
     )
 
 
