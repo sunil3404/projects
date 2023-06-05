@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+	
+	<div class ="container col-10">
+		<br>
+		<div class = 'container text-center'>
+			<h1> All Issues </h1>
+		</div>
+		<br>
+		{% for issue in issues %}
+			<div class="card" style="width: 50rem">
+			  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+			  <div class="card-body">
+			    <h4 class="card-title"><a href="{% url 'user-jiras' %}">{{ issue.assigned_to }} </a><small class='text-muted'> {{ issue.date_updated}} </small></h4>
+			    <p class="card-text">{{ issue.detail}}</p>
+			    <small class="text-muted"> Created By : {{ issue.assigned_to}}</small>
+			  </div>
+			</div>
+			<hr>
+		{% endfor %}
+	</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    {% if title %}
+        <title>Django - Home</title>
+    {% else %}
+        <title> Django - StudyBud</title>
+    {% endif %}
+</head>
+    
+<body>
+    {% include 'navbar.html' %}
+    {% block content %}
+    {% endblock %}
+    
+</body>
+</html>

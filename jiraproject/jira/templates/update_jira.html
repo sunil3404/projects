@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	<div class='container col-6'>
+		<h2> Update Issue</h2>
+		<form method='POST' action=''> {% csrf_token %}
+			{{ update_form.as_p}}
+			<button class='btn btn-outline-info' type="submit">Update</button>
+			<a href="{% url 'user-jiras' %}"<button class='btn btn-outline-danger' type="submit">Cancel</button></a>
+		</form>
+		
+	</div>
+	
+{% endblock %}

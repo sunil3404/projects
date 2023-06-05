@@ -1,0 +1,31 @@
+{% extends 'products/layout.html' %}
+
+{% block content %}
+	<blockquote class="p-3 blockquote text-center">
+             <h2 class="p-3 bg-primary text-white"> ALL PRODUCTS</h2>
+             <hr>
+        </blockquote>
+	{% if objects %}
+	<div class="container-fluid d-inline-flex flex-row justify-content-evenly flex-wrap">
+		{% for object in objects %}
+			<div class="card p-2" style="width: 20rem;">
+			  {% load static %}
+			  <img src="{{ object.product_image.url }}" class="card-img-top" alt="...">
+			  <div class="card-body">
+			    <h5 class="card-title"> {{ object.product_name }}</h5>
+			    <p class="card-text">{{ object.product_description }}</p>
+			    <p class="card-text">Rs {{ object.product_price }}</p>
+			    <a href="#" class="btn btn-outline-secondary">Add To Cart</a>
+			    <a href="#" class="btn btn-outline-secondary">By Now</a>
+			    {% if object.brand_id.brand_quantity == 0 %}
+				<p class="p-1 card-text text-danger"> Out of Stock</p>
+			    {% endif %}
+			  </div>
+			</div>
+			<br>
+		{% endfor %}
+		</div>
+	{% else %}
+		<h1 class="text-center text-muted"> No Products Found </h1>
+	{% endif %}
+{% endblock content %}

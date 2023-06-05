@@ -1,0 +1,11 @@
+{% extends "products/layout.html" %}
+{% block content %}
+
+<div class="container col-md-8 mt-4">
+	<div class="container-fluid border border-primary rounded p-4"> 
+		<h3 class="logout"> User  is Logged Out Successfully </h3>
+		<small class="text-muted mx-auto"><a class="login-link mx-auto" href="{% url 'user-login' %}">Login</a></small>
+	</div>
+</div>
+{% endblock content %}
+
