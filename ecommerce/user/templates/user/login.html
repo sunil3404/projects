@@ -1,0 +1,15 @@
+{% extends "products/layout.html" %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center container" style="height:100vh; background:#efefef;">
+	<div class="form-group col-md-8">
+		<h2 class="login-header" style="text-align: center;"> Login</h2>
+		<form method="POST">	{% csrf_token %}
+			<!--<img src="media/product_images/sample.jpeg" style="width:100px; height:100px;">-->
+			{{ form.as_p }}
+			<input type="Submit" class="btn btn-primary" style="margin-left:40%;" value="Login">
+		</form>
+	</div>
+</div>
+{% endblock content %}
+

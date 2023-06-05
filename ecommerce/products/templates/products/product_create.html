@@ -1,0 +1,13 @@
+{% extends 'products/layout.html' %}
+<h3> Create Product </h3>
+{% block content %}
+
+<form method="POST" action="#" enctype="multipart/form-data"> {% csrf_token %}
+		<blockquote class="p-3 blockquote text-center">
+			<h2 class="p-3 bg-primary text-white"> Product Create </h2>
+			<hr>
+		</blockquote>
+		{{ form.as_p }}
+		<input class="btn btn-primary" type="Submit" vlaue="Create"> 
+	</form>
+{% endblock content %}
