@@ -16,8 +16,7 @@ def product_create_view(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
-            #Product.objects.create(**form.cleaned_data)
+            Product.objects.create(**form.cleaned_data)
             return redirect("product-home")
         else:
             print("Invalid Form")
