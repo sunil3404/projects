@@ -1,5 +1,4 @@
 {% extends 'products/layout.html' %}
-
 {% block content %}
 	<blockquote class="p-3 blockquote text-center">
              <h2 class="p-3 bg-primary text-white"> ALL PRODUCTS</h2>
@@ -8,15 +7,15 @@
 	{% if objects %}
 	<div class="container-fluid d-inline-flex flex-row justify-content-evenly flex-wrap">
 		{% for object in objects %}
-			<div class="card p-2" style="width: 20rem;">
+			<div class="card mr-2 p-2" style="width: 15rem;">
 			  {% load static %}
-			  <img src="{{ object.product_image.url }}" class="card-img-top" alt="...">
+			  <img style='width: 100%; height:10rem;'src="{{ object.product_image.url }}" class="card-img-top" alt="...">
 			  <div class="card-body">
 			    <h5 class="card-title"> {{ object.product_name }}</h5>
 			    <p class="card-text">{{ object.product_description }}</p>
-			    <p class="card-text">Rs {{ object.product_price }}</p>
-			    <a href="#" class="btn btn-outline-secondary">Add To Cart</a>
-			    <a href="#" class="btn btn-outline-secondary">By Now</a>
+			    <p class="card-text">Rs {{ object.product_price }}</p>			
+			    <a product_id={{object.id}} class='btn btn-outline-secondary cart-add'>Add To Cart</a>
+			    <a product_id={{object.id}} class="btn btn-outline-secondary buy-item">By Now</a>
 			    {% if object.brand_id.brand_quantity == 0 %}
 				<p class="p-1 card-text text-danger"> Out of Stock</p>
 			    {% endif %}
@@ -29,3 +28,48 @@
 		<h1 class="text-center text-muted"> No Products Found </h1>
 	{% endif %}
 {% endblock content %}
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+	$('.cart-add').click(function(){
+	    product_id = $(this).attr("product_id")
+	    $.ajax({
+		    url: 'addtocart/',
+		    type: 'POST', // This is the default though, you don't actually need to always mention it
+		    data: {
+			'p_id' : product_id[0],
+			'csrfmiddlewaretoken': '{{ csrf_token }}',
+		    },
+		    success: function(data) {
+			console.log(data);
+			//window.location.href = '/mycart/';
+		    },
+		    failure: function(data) {
+			alert('Got an error dude');
+		    }
+		})
+	  });
+});
+$( document ).ready(function() {
+	$('.buy-item').click(function(){
+	    product_id = $(this).attr("product_id")
+	    $.ajax({
+		    url: 'addtocart/',
+		    type: 'POST', // This is the default though, you don't actually need to always mention it
+		    data: {
+			'p_id' : product_id[0],
+			'csrfmiddlewaretoken': '{{ csrf_token }}',
+		    },
+		    success: function(data) {
+			console.log("Success");
+			window.location.href = '/mycart/';
+		    },
+		    failure: function(data) {
+			alert('Got an error dude');
+		    }
+		})
+	  });
+});
+</script>
+{% endblock javascript %}

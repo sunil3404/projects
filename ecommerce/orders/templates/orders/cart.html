@@ -1,0 +1,28 @@
+{% extends 'products/layout.html' %}
+{% block content %}
+	
+	<div class="container-fluid col-md-8 mr-auto p-2 text-center">
+		<h1 class="bg-white text-greeni shadow-sm"> My Cart </h1>
+	</div>
+	<div class="container col-4 bg-gradient-primary">
+		<input class="btn btn-outline-info form-control" type="submit" value="CheckOut({{objects|length}})">
+	</div>
+	{% for object in objects %}
+		<div class="container-fluid col-md-8 my-2">
+			<div class="shadow row border-top border-bottom border-success rounded">
+				<div class="border border-white rounded container col-md-6 my-4 ml-12 center-block">
+					<span class="row my-2 mx-auto">{{object.product.product_name}}</span>
+					<span class="row my-2 mx-auto">{{object.product.product_price}}</span>
+					<div class="row mx-1">
+						<a href="#"><i class="col-1 border border-info shadow fas fa-window-minimize"></i></a>
+						<input class="text-center col-2 border border-info rounded my-2 mx-2 p-1" type="number" min="1" value="1">
+						<a href="#"><i class="border border-info col-3 rounded fas fa-plus"></i></a>
+					</div>
+				</div>
+				<div class="container col-md-4 p-4 mr-10">
+					<img class="img-thumbnail rounded-circle my-6 mr-10" src={{object.product.product_image.url}}></img>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock content %}
