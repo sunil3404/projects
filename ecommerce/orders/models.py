@@ -25,10 +25,11 @@ class OrderItem(models.Model):
     user_id = models.ForeignKey(MyUser, default="null", on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, default="null", on_delete=models.CASCADE)
     order_status = models.CharField(max_length=100, choices=ORDER_STATUS_CHOICES, default=PREORDER)
+    price = models.FloatField(default=0.0)
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.order_status
+        return self.product_id.product_name
 
 class Transaction(models.Model):
     order_id = models.ForeignKey(OrderItem, default="null", on_delete=models.CASCADE)
@@ -36,4 +37,5 @@ class Transaction(models.Model):
 
 class Cart(models.Model):
     product = models.ForeignKey(Product, default="null", on_delete=models.CASCADE)
+    userid = models.ForeignKey(MyUser, default="null", on_delete=models.CASCADE)
 

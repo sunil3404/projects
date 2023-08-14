@@ -1,6 +1,38 @@
 {% extends "products/layout.html" %}
 
 {% block content %}
-	<h2> My Orders </h2>
-	<p> {{ orders.product_name }} </p>
+	<div class="container col-md-8 border border-info rounded  text-center p-2 h2 my-2 bg-primary">ORDER SUMMARY
+	</div>
+
+	<div class="container col-md-6 border border-info rounded">
+		<table class="table table-borderless mt-2 rounded">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Qty</th>
+					<th>Price</th>
+					<th>Total Price</th>
+				</tr>
+				<tbody>
+					<tr>
+					{% for object in objects %}
+					<td>{{ object.product_name }}</td>
+					<td>2</td>
+					<td>{{ object.product_price }}</td>
+					<td>{{ object.product_price }} * 1</td>
+					{% endfor %}
+					</tr>
+					<tr>
+						<td>Discount</td>
+					</tr>
+					<tr>
+						<td>Total</td>
+					</tr>
+				</tbody>
+			</thead>
+		</table>
+
+
+	</div>
+	</div>
 {% endblock content %}

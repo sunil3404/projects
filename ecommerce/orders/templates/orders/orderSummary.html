@@ -1,0 +1,149 @@
+{% extends "products/layout.html" %}
+
+{% block content %}
+	<div class="container col-md-8 rounded text-center p-2 h2 my-2 bg-primary">BUY SUMMARY
+	</div>
+	<div class="container col-md-8 border border-top-0 border-info rounded p-3">
+	<div class="container col-md-10 border border-success rounded p-3">
+		<div class="row p-1 d-flex align-items-center justify-content-between">
+			<p class="col-3 h5 ml-0">Deliver To</p>
+			<button class="col-2 btn btn-outline-primary mr-2" data-toggle="modal" data-target="#exampleModalCenter"><small class="text-muted">+Add New</small></button>
+		</div>
+		{% for addr in addresses  %} 
+			<div class="row border border-info rounded mx-auto mb-2">
+				<div class="col-1 p-2 my-2">
+					<input class="text-center" type="radio" name="address">
+				</div>
+				<div class="col-6 p-1 my-1 text-justify" > 
+					<p class="text-justify">{{ addr }}</p>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="container mt-2 col-md-10 border border-success rounded">
+		<table class="table table-striped table-light mt-2 rounded">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Qty</th>
+					<th>Price</th>
+					<th>Offers</th>
+					<th>Total Price</th>
+				</tr>
+				<tbody>
+					{% for object in objects %}
+					<tr>
+					<td>{{ object.product_id.product_name }}</td>
+					<td>{{ object.quantity}}</td>
+					<td>{{ object.product_id.product_price }}</td>
+					<td>0%</td>
+					<td class="price">{{ object.price}}</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td colspan=4>Discount</td>
+						<td> 10%</td>
+					</tr>
+					<tr>
+						<td colspan=4>Total</td>
+						<td class="total"> 59</td>
+					</tr>
+				</tbody>
+			</thead>
+		</table>
+	</div>
+	<div class="container col-md-6 mt-3">
+		<div class="row">
+			<div class="col p-2 mx-2">
+				<a href="{%url 'mycart-details' %}" class="btn btn-danger">Back</a>
+			</div>
+			<div class="col-2 p-2 mx-auto">
+				<a href="#" class="btn btn-success">Confirm</a>
+			</div>
+		<div>
+	</div>
+	</div>
+                {% for object in objects %}
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">New Address</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		      </div>
+		       <div class="modal-body">
+			  {% csrf_token %}
+			  <div class="form-group">
+			    <label for="recipient-name" class="col-form-label">Username:</label>
+			    <input type="text" class="form-control" id="recipient-name" value={{object.user_id.username }}>
+			  </div>
+			  <div class="form-group">
+			    <label for="recipient-email" class="col-form-label">Email:</label>
+			    <input type="text" class="form-control" id="recipient-email" value={{ object.user_id.email }}>
+			  </div>
+			  <div class="form-group">
+			    <label for="message-text" class="col-form-label">Address:</label>
+			    <textarea class="form-control" id="recipent-address"></textarea>
+			  </div>
+			  <div class="modal-footer">
+		            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			    <button type="button" class="btn btn-primary add-new">ADD</button>
+			  </div>
+		       </div>
+		      <!--<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		      </div>-->
+		    </div>
+		</div>
+		{% endfor %}
+{% endblock content %}
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+function getUserDetails(){
+	var username  = document.getElementById("recipient-name").value
+	var email  = document.getElementById('recipient-email').value
+	var address = document.getElementById('recipent-address').value
+	const userdetails = {
+		"username" : username,
+		"email" : email,
+		"address" : address
+	}
+	return userdetails
+}
+$(document).ready(function(){
+        $('.add-new').click(function(){
+           var user = getUserDetails();
+           $.ajax({
+                url: '/orderSummary/',
+                type: 'POST',
+                traditional: true,
+                dataType: "json",
+                headers : {
+                                "contentType" : "application/json",
+                                "X-CSRFToken": '{{ csrf_token }}'
+                },
+                data : {
+                        "username" : user['username'],
+                        "email" : user['email'],
+			"address" : user['address'],
+                        "csrfmiddlewaretoken" : '{{ csrf_token }}'
+                },
+                success : function(data){
+                        window.location.href = "/orderSummary/";
+                },
+                failure : function(data){
+
+                }
+
+            })
+        });
+});
+
+</script>
+{% endblock javascript %}

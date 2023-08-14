@@ -13,4 +13,4 @@ ROLES  = [
 class MyUser(AbstractUser):
     role=models.CharField(max_length=100, choices=ROLES)
     email = models.EmailField(max_length=250, unique=True)
-    address = models.CharField(max_length=255, blank=True, null=True)
+    address = models.CharField(max_length=20000, blank=True, null=True)

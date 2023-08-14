@@ -32,3 +32,11 @@ class RegisterForm(forms.Form):
             self.add_error("password1", msg)
         return self.cleaned_data
 
+class AddressForm(forms.Form):
+    username = forms.CharField(label="", 
+            widget=forms.TextInput(attrs={"class" : "form-control", "placeholder" : "Enter Username" }))
+    email = forms.EmailField(label="", 
+            widget=forms.EmailInput(attrs={"class" : "form-control", "placeholder" : "Enter Email"}))
+    address = forms.CharField(label="",
+            widget=forms.Textarea(attrs={"class" : "form-control", "placeholder" : "Address" }))
+

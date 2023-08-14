@@ -1,28 +1,157 @@
 {% extends 'products/layout.html' %}
 {% block content %}
-	
-	<div class="container-fluid col-md-8 mr-auto p-2 text-center">
-		<h1 class="bg-white text-greeni shadow-sm"> My Cart </h1>
-	</div>
-	<div class="container col-4 bg-gradient-primary">
-		<input class="btn btn-outline-info form-control" type="submit" value="CheckOut({{objects|length}})">
-	</div>
-	{% for object in objects %}
-		<div class="container-fluid col-md-8 my-2">
-			<div class="shadow row border-top border-bottom border-success rounded">
-				<div class="border border-white rounded container col-md-6 my-4 ml-12 center-block">
-					<span class="row my-2 mx-auto">{{object.product.product_name}}</span>
-					<span class="row my-2 mx-auto">{{object.product.product_price}}</span>
-					<div class="row mx-1">
-						<a href="#"><i class="col-1 border border-info shadow fas fa-window-minimize"></i></a>
-						<input class="text-center col-2 border border-info rounded my-2 mx-2 p-1" type="number" min="1" value="1">
-						<a href="#"><i class="border border-info col-3 rounded fas fa-plus"></i></a>
-					</div>
+<div class="container border border-secondary rounded">
+   {% if not objects %}
+   <div class="row"> 
+	   <h5 class="col-md-6 shadow-sm border border-warning text-danger rounded mx-auto mt-3 p-3 text-center">No Items In Your Cart !!! <a href="{% url 'product-home' %}" class="text-muted">Add Products</a></h5>
+   </div>
+   {% else %}
+   <div class="row"> 
+	   <input type="Submit" class="col-md-6 mx-auto btn btn-info mt-3 p-3 mb-3 check-out" value="Proceed to Buy Items ({{ objects|length}})">
+   </div>
+
+   {% for object in objects %}
+	   <div class="container border border-secondary rounded mb-4 mx-auto">
+		<div class="row p-4">
+			<div class="col-md-6"> 
+				<div class="row mx-0 px-0 d-flex justify-content-around">
+					<input onclick="countCartItems(this)" class="col-md-4 my-2" type="checkbox" id="check{{object.id}}" checked="checked">
 				</div>
-				<div class="container col-md-4 p-4 mr-10">
-					<img class="img-thumbnail rounded-circle my-6 mr-10" src={{object.product.product_image.url}}></img>
+				<div class="mx-auto mb-2 text-center"><span class="text-muted h6">{{object.product.product_name}}</span></div>
+				<div class="mx-auto mb-2 text-center"><span class="text-muted h6 text-nowrap">{{object.product.product_description}}</span></div>
+				<div class="mx-auto mb-2 text-center"><span class="col-md-8 h4 font-weight-bold mx-auto" id="price{{object.id}}">INR: {{object.product.product_price}}</span></div>
+				<div class="row mx-0 px-0 d-flex justify-content-around">
+					<a href="#"><i onclick="clickDec(this)" id="dec{{object.id}}" class="fas fa-minus"></i></a>
+					<input class="input-sm form-control col-2" id="quantity{{object.id}}" type="text" min="1" value="1">
+					<a href="#" ><i onclick="clickInc(this)" id="inc{{object.id}}" class="fas fa-plus"></i></a>
 				</div>
 			</div>
+			<div class="col-md-6">
+				<img class="rounded-circle col-md-4 mx-auto d-block"   src="{{ object.product.product_image.url }}"</img>
+				<input cart_id={{object.id}} class="cart-item col-md-2 btn btn-danger mx-auto d-block mt-3" type="Submit" value="Delete">
+			</div>
 		</div>
-	{% endfor %}
+	   </div>
+   {% endfor %}
+</div>
+{% endif %}
 {% endblock content %}
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+function getCartProperties(){
+	var quantity = [], cartData = []
+	cartItems = document.querySelectorAll("input[type=checkbox]:checked")
+	console.log(cartItems[0].id.replace(/^\D+/g, ''))
+	for (var i= 0; i< cartItems.length; i++){
+		cartid= cartItems[i].id.replace(/^\D+/g, '');
+		qty = document.getElementById("quantity"+cartid).value
+		cartData.push(cartid);
+		quantity.push(qty);
+	}
+	return [cartData, quantity]
+}
+$(document).ready(function(){
+	$('.check-out').click(function(){
+	   var cart_details = getCartProperties();
+	   $.ajax({
+		url: '/orderSummary/',
+	        type: 'POST',
+	        traditional: true,
+		dataType: "json",
+		headers : {
+				"contentType" : "application/json",
+				"X-CSRFToken": '{{ csrf_token }}'
+		},
+		data : {
+			"cartIds" : cart_details[0],
+			"quantity" : cart_details[1],
+			"check_out" : "success",
+			"csrfmiddlewaretoken" : '{{ csrf_token }}'
+		},
+		success : function(data){
+			console.log("Success");
+			window.location.href = "/orderSummary/";
+		},
+		failure : function(data){
+
+		}
+
+	    })
+	});
+});
+$(document).ready(function() {
+        $('.cart-item').click(function(){
+            cart_id = $(this).attr("cart_id")
+            $.ajax({
+                    url: '/deleteCartItem/',
+                    type: 'POST', // This is the default though, you don't actually need to always mention it
+                    data: {
+                        'c_id' : cart_id,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    success: function(data) {
+                        console.log("Success");
+			window.location.href = '/mycart/';
+                    },
+                    failure: function(data) {
+                        alert('Got an error dude');
+                    }
+                })
+          });
+});
+
+function countCartItems(e){
+	totalItems = parseInt(document.getElementsByClassName("check-out")[0].value.split("(")[1].replace(")", ""))
+	proceedButton = document.getElementsByClassName('check-out')
+	checkBox = document.getElementById(e.id)
+	if (checkBox.checked){
+		totalItems = totalItems + 1
+		proceedButton[0].value = "Proceed to Buy Items ("+totalItems+")";
+		proceedButton[0].disabled = false
+		//proceedButton[0].removeAttribute("style")
+	}else{
+		totalItems = totalItems - 1
+		if (totalItems == 0){
+			proceedButton[0].value = "Select Atleast one item ("+totalItems+")";
+			proceedButton[0].disabled = true
+			//proceedButton[0].style.background="red"
+		}else{
+			proceedButton[0].value = "Proceed to Buy Items ("+totalItems+")";
+		}
+	}
+}
+
+var input = "quantity";
+
+function clickDec(decid){
+	var num = (decid.id).replace(/[^0-9]/g, '');
+	var spanPrice = parseFloat(document.getElementById("price"+num).innerText.split(" ")[1]);
+	var itemQuantity = document.getElementById(input+num).value
+	if (itemQuantity == 1){
+		var basePrice = parseFloat(spanPrice);
+	}else {
+		var basePrice = parseFloat(spanPrice) / parseFloat(itemQuantity);
+	}
+	if (parseInt(itemQuantity) > 1){
+		itemQuantity = parseInt(itemQuantity) - 1;
+		document.getElementById(input+num).value = itemQuantity
+		document.getElementById("price"+num).innerHTML = "INR:  " + (parseFloat(spanPrice) - parseFloat(basePrice)).toFixed(2);
+	}
+}
+
+function clickInc(incid){
+	var num = (incid.id).replace(/[^0-9]/g, '');
+	var spanPrice = parseFloat(document.getElementById("price"+num).innerText.split(" ")[1]);
+	var itemQuantity = document.getElementById(input+num).value
+	if (itemQuantity == 1){
+		var basePrice = parseFloat(spanPrice);
+	}else {
+		var basePrice = parseFloat(spanPrice) / parseFloat(itemQuantity);
+	}
+	itemQuantity = parseInt(itemQuantity) + 1;
+	document.getElementById(input+num).value = itemQuantity
+	document.getElementById("price"+num).innerText = "INR:  " + (parseFloat(basePrice) * itemQuantity).toFixed(2)
+}
+</script>
+{% endblock javascript %}

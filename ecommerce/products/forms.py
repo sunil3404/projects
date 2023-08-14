@@ -8,7 +8,7 @@ class ProductForm(forms.Form):
             widget=forms.TextInput(attrs={"class" : "form-control", "cols" : "2"}), max_length=100)
     product_description = forms.CharField(label="Description",
             widget = forms.Textarea(attrs={"class" : "form-control", "cols": "4", "rows" : "8"}))
-    product_price = forms.IntegerField(label="Price", 
+    product_price = forms.FloatField(label="Price", 
             widget=forms.NumberInput(attrs={"class" : "form-control"}))
     product_image = forms.ImageField(label="Image",
             widget = forms.FileInput(attrs={"class" : "form-control", "required" : "false"}))

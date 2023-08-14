@@ -19,6 +19,7 @@ class Product(models.Model):
     product_price = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     product_added_date = models.DateField(auto_now_add=True)
     product_updated_date = models.DateField(auto_now=True)
+    product_offers = models.IntegerField(default=0)
 
     brand_id = models.ForeignKey(Brand, default="null", on_delete=models.CASCADE)
     category_id  =  models.ForeignKey(Inventory, default=1, on_delete=models.CASCADE)

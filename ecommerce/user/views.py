@@ -26,6 +26,10 @@ def registerUser(request):
             return redirect("user-login")
     return render(request, "user/register.html", {"form" : form })
 
+def addNewAddress(request):
+    context = {}
+    return render(request, "orders/orderSummary.html", context)
+
 def logout_user(request):
     logout(request)
     return render(request, 'user/logout.html')

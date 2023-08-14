@@ -2,15 +2,14 @@
 <h3> Create Product </h3>
 {% block content %}
 
-<div class="container-fluid border border-left border-right border-bottom border-info m-0 p-4">
-	<form class="p-8" method="POST" action="#" enctype="multipart/form-data"> {% csrf_token %}
-			<blockquote class="p-3 blockquote text-center">
-				<h4 class="p-3 bg-primary text-white"> Product Create </h4>
-				<hr>
-			</blockquote>
+<div class="container col-md-8 d-flex justify-content-center align-items-center min-vh-100 mx-auto flex-column">
+	<blockquote class="col-md-6 p-2 blockquote text-center">
+		<h4 class="p-2 border rounded bg-info text-white"> Product Create </h4>
+	</blockquote>
+	<form class="col-md-6 p-4 bg-light" method="POST" action="#" enctype="multipart/form-data"> {% csrf_token %}
 			{{ form.as_p }}
-			<div class="container-fluid text-center">
-				<input class="btn btn-primary" type="Submit" vlaue="Create"> 
+			<div class="container text-center">
+				<input class="btn btn-info col-md-6" type="Submit" vlaue="Create"> 
 			</div>
 	</form>
 </div>

@@ -7,15 +7,15 @@
 	{% if objects %}
 	<div class="container-fluid d-inline-flex flex-row justify-content-evenly flex-wrap">
 		{% for object in objects %}
-			<div class="card mr-2 p-2" style="width: 15rem;">
+			<div class="card mr-1 p-1" style="width: 15rem;">
 			  {% load static %}
-			  <img style='width: 100%; height:10rem;'src="{{ object.product_image.url }}" class="card-img-top" alt="...">
+			  <img style='width:100%; height:9rem;' src="{{ object.product_image.url }}" class="card-img-top img-thumbnail p-2" alt="...">
 			  <div class="card-body">
-			    <h5 class="card-title"> {{ object.product_name }}</h5>
-			    <p class="card-text">{{ object.product_description }}</p>
-			    <p class="card-text">Rs {{ object.product_price }}</p>			
-			    <a product_id={{object.id}} class='btn btn-outline-secondary cart-add'>Add To Cart</a>
-			    <a product_id={{object.id}} class="btn btn-outline-secondary buy-item">By Now</a>
+			    <h5 class="card-title h4"> {{ object.product_name }}</h5>
+			    <p class="card-text h6 text-muted">{{ object.product_description }}</p>
+			    <p class="card-text h3">Rs {{ object.product_price }}</p>			
+			    <a product_id={{object.id}} class='btn btn-outline-info mx-auto cart-add'>CART</a>
+			    <a product_id={{object.id}} class="btn btn-outline-success mx-auto buy-item">BUY</a>
 			    {% if object.brand_id.brand_quantity == 0 %}
 				<p class="p-1 card-text text-danger"> Out of Stock</p>
 			    {% endif %}

@@ -1,15 +1,20 @@
 {% extends "products/layout.html" %}
 {% block content %}
 
-<div class="row justify-content-center align-items-center container" style="height:100vh; background:#efefef;">
-	<div class="form-group col-md-8">
-		<h2 class="login-header" style="text-align: center;"> Login</h2>
-		<form method="POST">	{% csrf_token %}
-			<!--<img src="media/product_images/sample.jpeg" style="width:100px; height:100px;">-->
-			{{ form.as_p }}
-			<input type="Submit" class="btn btn-primary" style="margin-left:40%;" value="Login">
-		</form>
-	</div>
+<div class="container col-md-8 min-vh-100 col-md-6 d-flex justify-content-center align-items-center flex-column">
+	<div class="container  border  rounded text-white bg-primary col-md-8 mx-auto  text-center h3 p-2">Login</div>
+	<div class="bg-light container col-md-8 border border-secondary rounded p-4" style="height: 100%; width:100%">
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<div class="container">
+		<div class="row justify-content-center">
+		<input class="col-2 ml-4 btn btn-outline-info"  type="Submit" value="Login">
+		<small class="col-6 text-muted p-2">Not a member?<a href="{% url 'user-register' %}">SignUp</a></small>
+		</div>
+		</div>
+	</form>
+	<div>
 </div>
 {% endblock content %}
 

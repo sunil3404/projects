@@ -1,13 +1,23 @@
 {% extends "products/layout.html" %}
 
 {% block content %}
-<div class="contaier-fluid col-md-8">
+
+<div class="container col-md-8 d-flex justify-content-center align-items-center min-vh-100 flex-column">
+	<div class="container  border  rounded text-white bg-primary col-md-8 mx-auto  text-center h3 p-2">Register</div>
+
+	<div class="container border border-info rounded p-4 mx-auto">
 	<form method="POST">
 		{% csrf_token %}
-		<h2 class = "form-heading" style="text-align: center">Register</h2>
+		<!--<h2 class = "form-heading" style="text-align: center"></h2>-->
 		{{ form.as_p }}
-		<input class="btn btn-info" type="Submit" value = "Register">
+		<div class="container mx-auto">
+		<div class="row justify-content-center">
+		<input class="col-2 btn btn-info" type="Submit" value = "Register">
+		<small class="col-4 text-muted pt-2"><a href="{% url 'user-login' %}"> Already a member? Login</a></small>
+		</div>
+		</div>
 	</form>
+	</div>
 </div>
 {% endblock content %}
 
