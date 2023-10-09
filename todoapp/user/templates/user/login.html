@@ -1,0 +1,10 @@
+{% extends "todoapp/base.html" %}
+{% block title%} Login{% endblock title %}
+{% load static %}
+{% block content %} 
+<p> User is {{user}}</p>
+<form>{% csrf_token %}
+	{{ form.as_p}}
+	
+</form>
+{% endblock content %}

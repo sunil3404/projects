@@ -1,0 +1,10 @@
+{% extends "todoapp/base.html" %}
+{% block title%} Register {% endblock title %}
+{% block content %} 
+<form method='POST'>{% csrf_token %}
+	{{ form.as_p}}
+	
+</form>
+<input class="btn btn-primary" type="submit" value="Register">
+<small class="text-muted">Already a member? <a class="login-btn-reg" href = "{% url 'user-login' %}"> Login </a></small>
+{% endblock content %}
