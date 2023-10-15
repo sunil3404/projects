@@ -1,10 +1,12 @@
 {% extends "todoapp/base.html" %}
 {% block title%} Register {% endblock title %}
 {% block content %} 
-<form method='POST'>{% csrf_token %}
-	{{ form.as_p}}
-	
-</form>
-<input class="btn btn-primary" type="submit" value="Register">
-<small class="text-muted">Already a member? <a class="login-btn-reg" href = "{% url 'user-login' %}"> Login </a></small>
+<div class="container col-md-4 mx-auto my-4 text-center bg bg-primary p-2 text-warning border rounded">Register Here</div>
+<div class="container col-md-8 mx-auto p-2 d-flex justify-content-start align-items-start min-vh-70 border border-info">
+	<form method='POST' class="form-control border border-info p-4">{% csrf_token %}
+		{{ form.as_div}}
+		<input class="col-md-8 mx-auto my-4 btn btn-outline-primary" type="submit" value="Register">
+		<small class=" mx-4 text-muted">Already a member? <a class="login-btn-reg" href = "{% url 'user-login' %}"> Login </a></small>
+	</form>
+</div>
 {% endblock content %}

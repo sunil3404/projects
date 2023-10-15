@@ -1,0 +1,69 @@
+{% extends "todoapp/base.html" %}
+{% block title %} Tasks {% endblock title %}
+{% block content %}
+<div class="container-fluid col-md-12 mx-auto p-4">
+	<form method="POST">{% csrf_token %}
+		<div class="form-control col-md-12 mx-auto bg-info p-4 d-flex justify-content-center">
+			{{ form.as_table}}
+			<!-- <input type="text" class="col-6 task-input p-1" placeholder="Enter Task ..."> -->
+			<input type="submit" class="col-1 mx-2 btn btn-success task-create" value="Create">
+		</div>
+	</form>
+</div>
+
+<div class="container col-md-12 mx-auto p-4 border border-info">
+	<table class="table table-striped thead-dark col-md-12 small my-table"> 
+		<thead class="thead thead-dark">
+			<tr>
+				<!-- <th scope="col"> Id</th> -->
+				<th scope="col" colspan="4"> Name</th>
+				<th scope="col" colspan="2"> Status</th>
+				<th scope="col" colspan="2"> Created Date</th>
+				<th scope="col" colspan="2"> Updated Date</th>
+				<th scope="col" colspan="2"> UserName</th>
+				<th> Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if user == request.user and user.is_authenticated %}
+				{% for task in page_obj.object_list %}
+				<tr>
+					<!-- <th scope="row"> {{ task.id }}</th> -->
+					<td colspan="4"> {{ task.task_name }}</td>
+					<td colspan="2"> {{ task.status_id.status }}</td>
+					<td colspan="2"> {{ task.task_create_date }}</td>
+					<td colspan="2"> {{ task.task_update_date }}</td>
+					<td colspan="2"> {{ task.user_id }} </td>
+					<td>
+						<a href="{% url 'usertask-update' task.id %}"><input class="btn btn-info col-2" id="btn-edit" value="Edit"></a>
+						<a href="{% url 'usertask-delete' task.id %}"><input class="btn btn-danger mx-4 col-3" id="btn-delete" value="Delete"></a>
+					</td>
+				</tr>
+				{% endfor %}
+			{% endif %}
+		</tbody>
+
+	</table>
+</div>
+<div class=" col-md-6 mx-auto pagination my-4">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info" href="?page=1">&laquo; first</a>
+            <a class="btn btn-outline-info" href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        {% for num in pg_num %}
+        	{% if page_obj.number == num %}
+		        <a href="?page={{ num }}" class="btn btn-info">{{ num }}</a>
+		    {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+		    	<a class="btn btn-outline-info" href = "?page={{ num }}">{{ num }}</a>
+	        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info" href="?page={{ page_obj.next_page_number }}">next</a>
+            <a class="btn btn-outline-info" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}
