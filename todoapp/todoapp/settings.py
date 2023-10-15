@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    #Installed Apps User
     "user.apps.UserConfig",
+    "status.apps.StatusConfig",
+    "todotask.apps.TodotaskConfig"
 ]
 
 MIDDLEWARE = [
@@ -58,7 +62,8 @@ TEMPLATES = [
         'DIRS': [ 
                     BASE_DIR / 'templates',
                     BASE_DIR / 'user/templates',
-                    BASE_DIR / 'status/templates'
+                    BASE_DIR / 'status/templates',
+                    BASE_DIR / 'todotask/templates'
                 ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -136,7 +141,9 @@ STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    BASE_DIR / 'user/static'
+    BASE_DIR / 'user/static',
+    BASE_DIR / 'todotask/static'
+
 ]
 
 # STATIC_URL = BASE_DIR / "static"
