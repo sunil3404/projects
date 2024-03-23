@@ -8,7 +8,7 @@ from models import Company
 #with open("C:\\Users\\skumarb4\\Documents\\Projects\\webscraping\\stocksapi\\config.json", "r") as config:
  #   conf = json.load(config)
 
-with open("/home/sunil/projects/stocksapi/config.json", "r") as config:
+with open("./config.json", "r") as config:
     conf = json.load(config)
 
 companies = ["ZOMATO","3MINDIA", "RELIANCE"]
