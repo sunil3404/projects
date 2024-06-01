@@ -1,3 +1,5 @@
 fast-env
 *.swp
 *.pyc
+node_modules
+
