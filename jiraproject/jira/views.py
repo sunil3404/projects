@@ -60,7 +60,6 @@ def registerUser(request):
 		user_form = UserCreationForm(request.POST)
 		if user_form.is_valid():
 			user_form.save()
-			print(user_form.cleaned_data)
 			return redirect('login-user')
 		else:
 			print("In else", user_form.cleaned_data)
@@ -74,7 +73,6 @@ def loginUser(request):
 							 password=request.POST['password'])
 		if user is not None:
 			auth_login(request, user)
-			print(request.user.username)
 			return redirect('user-jiras')
 		else:
 			print('User not found')
@@ -85,7 +83,6 @@ def loginUser(request):
 
 @login_required
 def userJiras(request):
-	print(request.user)
 	issues = JiraIssue.objects.filter(assigned_to=request.user)
 	context = {
 		'issues' : issues
