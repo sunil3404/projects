@@ -26,12 +26,4 @@ class JiraIssue(models.Model):
 		return self.name
 
 
-class RegisterUser(models.Model):
-	username = models.CharField(max_length=100)
-	email = models.EmailField()
-	password = models.TextField()
-	confirm_password = models.TextField()
-
-	def __str__(self):
-		return self.username
 

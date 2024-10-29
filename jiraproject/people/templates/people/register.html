@@ -1,21 +1,6 @@
 {% extends 'base.html' %}
 {%load crispy_forms_tags %} 
 {% block content %}
-	<!-- <div class = "container col-6">
-		<div class="text-center">
-			<br>
-			<h1> Register User </h1>
-		</div>
-		<br>
-		<form method='POST' action='.'> {% csrf_token %}
-			{{ user_form.as_p}}
-			<div class="form-group text-center">
-				<input type='Submit' class='btn btn-primary' value='Register'>
-				<small text="muted"> Already Rgistered? <a href="{% url 'login-user' %}"> Login </a></small>
-			</div>
-			
-		</form>
-	</div> -->
 
 	<div class="content-section">
     <form method="POST">
