@@ -13,20 +13,22 @@ class IssueForm(forms.ModelForm):
 	# name = form.CharField(max_length=100, )
 	class Meta:
 		model = JiraIssue
-		fields = ('name', 'detail', 'status', 'assigned_to')
+		fields = ('name', 'detail', 'status', 'assigned_to', 'project_name')
 		# choices = ['New', 'InProgress', 'InReview', 'Done']
 		ordered = ['-date_created']
 
 		labels = {
 			'name' : 'Title',
-			'detail' : 'Description'
+			'detail' : 'Description',
+			'project_name' : 'Project'
 
 		}
 		widgets = {
 
 			'name' : forms.TextInput(attrs={'class' : 'form-control'}),
-			'detail' : forms.Textarea(attrs={'class' : 'form-control row-2'}),
-			'status' : forms.Select(attrs={'class' : 'form-control col-4'}),
-			'assigned_to' : forms.Select(attrs={'class' : 'form-control col-4'})
+			'detail' : forms.Textarea(attrs={'class' : 'form-control'}),
+			'status' : forms.Select(attrs={'class' : 'form-control'}),
+			'assigned_to' : forms.Select(attrs={'class' : 'form-control'}),
+			'project_name' : forms.Select(attrs={'class' : 'form-control'}),
 		}
 

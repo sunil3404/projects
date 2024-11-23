@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from projects.models import JiraProject
 
 
 status = (
@@ -18,6 +19,7 @@ class JiraIssue(models.Model):
 	assigned_to=models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
+	project_name = models.ForeignKey(JiraProject, null=True, on_delete=models.CASCADE)
 
 	class Meta:
 		ordering = ['-date_updated']

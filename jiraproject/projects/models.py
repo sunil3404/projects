@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -7,6 +8,7 @@ from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 class JiraProject(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(default=None)
+    # users = models.json
 
     def __str__(self) -> str:
         return self.name

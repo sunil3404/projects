@@ -4,6 +4,34 @@
 
     <div class="container">
         <h3>{{ project.name}}</h3>
+        <hr>
+
+        <div class="container border border-primary my-4 p-0">
+            <div class="bg-secondary">
+                <h4 class="text-white p-3 mx-0">USERS</h4>
+            </div>
+            <div class="container d-flex justify-content-between p-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+
+                  <div class="card mx-0">
+                    <div class="container">
+                      <h5><a href="{ url 'show-people'}">username@gmail.com</a></h5>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="container border border-primary my-4 p-0">
+            <div class="bg-secondary">
+                <h4 class="text-white p-3 mx-0">ISSUES</h4>
+            </div>
+            
+        </div>
+
+        
     </div>
 
 {% endblock content %}
