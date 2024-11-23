@@ -31,7 +31,7 @@ def loginUser(request):
 							 password=request.POST['password'])
 		if user is not None:
 			auth_login(request, user)
-			return redirect('user-jiras')
+			return redirect('jira-home')
 		else:
 			print('User not found')
 	context = {
