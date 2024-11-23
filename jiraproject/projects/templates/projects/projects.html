@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %} 
+{% block content %}
+
+	<div class='container col-10 row-2'>
+		<div class="d-flex justify-content-between">
+			<h3>Projects</h3>
+			<a href="{% url 'create-project' %}"<button class="btn btn-outline-success mx-0 my-1">CREATE</button></a>
+		</div>
+		
+		<hr>
+		{% if projects %}
+			<table class="table table-light table-hover">
+				<thead>
+					<tr>
+						<th scope="col">No</th>
+						<th scope="col">Name</th>
+						<th scope="col">Description</th>
+					</tr>
+				</thead>
+				
+					<tbody>
+						{% for project in projects %}
+							<tr>
+								<td scope="row">{{ project.pk }}</td>
+								<td><a href="{% url 'show-details' project.pk %}">{{ project.name }}</a></td>
+								<td>{{ project.description }} </td>
+							</tr>
+						{% endfor %}
+					</tbody>
+			</table>
+			
+		{% else %}
+			<div class="container col-8 row-2 d-flex justify-content-center">
+				<div class="p-2 mx-4, my-4">
+					<h3> No Projects Found</h3>
+					<a href="{% url 'create-project' %}"<button class="btn btn-info my-2">Create Project</button></a>
+				</div> 
+			</div>
+		{% endif %}
+		
+	</div>
+	
+{% endblock %}

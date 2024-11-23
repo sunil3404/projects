@@ -32,7 +32,7 @@ def create_jira(request):
 		form = IssueForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('jira-home')
+			return redirect('show-issues')
 		else:
 			form  = IssueForm()
 	return render(request, 'jira/create_jira.html', context)
@@ -55,12 +55,12 @@ def updateJira(request, pk):
 	return render(request, 'jira/update_jira.html', context)
 
 @login_required
-def userJiras(request):
+def showIssues(request):
 	issues = JiraIssue.objects.filter(assigned_to=request.user)
 	context = {
 		'issues' : issues
 	}
-	return render(request, 'jira/user_jiras.html', context)
+	return render(request, 'jira/issues.html', context)
 
 @login_required
 def logoutUser(request):

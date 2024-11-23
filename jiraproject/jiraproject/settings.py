@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     
     "jira.apps.JiraConfig",
     'people.apps.PeopleConfig',
+    'projects.apps.ProjectsConfig',
 ]
 
 MIDDLEWARE = [

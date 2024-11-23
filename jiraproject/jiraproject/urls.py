@@ -7,5 +7,6 @@ from django.shortcuts import render, redirect
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('jira.urls')),
-    path("", include('people.urls'))
+    path("", include('people.urls')),
+    path("", include('projects.urls'))
 ]

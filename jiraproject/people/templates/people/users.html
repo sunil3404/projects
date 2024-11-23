@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %} 
+{% block content %}
+	<div class='container col-10 row-2'>
+		<div class="d-flex justify-content-center bg-primary text-white p-3 my-3">
+			<h3>USERS</h3>
+		</div>
+		
+		{% if users %}
+			<table class="table table-light table-hover">
+				<thead>
+					<tr>
+						<th scope="col">userid </th>
+						<th scope="col">username</th>
+						<th scope="col">Projects</th>
+						<th scope="col">Issues</th>
+					</tr>
+				</thead>
+				
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td scope="row">{{ user.pk }}</td>
+								<td><a href="{% url 'login-user' %}">{{ user.username }}</a></td>
+								<td>{{ user. }} </td> 
+							</tr>
+						{% endfor %}
+					</tbody>
+			</table>
+			
+		{% else %}
+			<div class="container col-8 row-2 d-flex justify-content-center">
+				<div class="p-2 mx-4, my-4">
+					<h3> No Users Found</h3>
+					<a href="{% url 'register-user' %}"<button class="btn btn-info my-2">Create User</button></a>
+				</div> 
+			</div>
+		{% endif %}
+		
+	</div>
+	
+{% endblock %}

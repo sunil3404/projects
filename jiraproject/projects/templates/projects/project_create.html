@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %} 
+{% block content %}
+
+	<div class='container col-8 row-2'>
+		<h3>Create</h3>
+		<hr>
+		<form method='POST' action=''> {% csrf_token %}
+			{{ form|crispy }}
+			<div class="container d-flex justify-content-between mx-0 p-0">
+				<button class='btn btn-info' type="submit">Create</button>
+				<a href="{% url 'show-projects' %}"<button class='btn btn-danger' type="submit">Cancel</button></a>
+			</div>
+		</form>
+	</div>
+{% endblock %}

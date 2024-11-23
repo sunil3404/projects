@@ -39,6 +39,9 @@ def loginUser(request):
 	}
 	return render(request, 'people/login.html', context)
 
+def showPeople(request):
+	users = User.objects.all()
+	return render(request, 'people/users.html', {'users' : users})
 
 @login_required
 def logoutUser(request):

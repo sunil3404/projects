@@ -11,7 +11,7 @@
 			<div class="card" style="width: 50rem">
 			  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
 			  <div class="card-body">
-			    <h4 class="card-title"><a href="{% url 'user-jiras' %}">{{ issue.assigned_to }} </a><small class='text-muted'> {{ issue.date_updated}} </small></h4>
+			    <h4 class="card-title"><a href="{% url 'show-issues' %}">{{ issue.assigned_to }} </a><small class='text-muted'> {{ issue.date_updated}} </small></h4>
 			    <p class="card-text">{{ issue.detail}}</p>
 			    <small class="text-muted"> Created By : {{ issue.assigned_to}}</small>
 			  </div>
