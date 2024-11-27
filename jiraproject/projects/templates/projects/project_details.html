@@ -32,7 +32,7 @@
               <table class="table p-2">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col">Summary</th>
                     <th scope="col">Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Reported By</th>
@@ -43,7 +43,7 @@
                 <tbody>
                   {% for issue in issues %}
                     <tr>
-                      <th scope="row"><a href="{% url 'issue-details' issue.pk %}">{{ issue.name }}</a></th>
+                      <th scope="row"><a href="{% url 'issue-details' issue.pk %}">{{ issue.summary }}</a></th>
                       <td>{{issue.detail}}</td>
                       <td>{{issue.status}}</td>
                       <td>{{issue.assigned_to}}</td>

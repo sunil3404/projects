@@ -13,7 +13,7 @@ def get_user_id():
 	return User.objects.get(id=1)
 
 class JiraIssue(models.Model):
-	name = models.CharField(max_length=250)
+	summary = models.CharField(max_length=250)
 	detail = models.TextField()
 	status = models.CharField(max_length = 50, choices=status, default="new")
 	reported_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='issue_reported_by')
