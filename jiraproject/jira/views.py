@@ -63,6 +63,14 @@ def showIssues(request):
 	return render(request, 'jira/issues.html', context)
 
 @login_required
+def showIssueDetail(request, pk):
+	issue = JiraIssue.objects.filter(id=pk)
+	context = {
+		'issue' : issue
+	}
+	return render(request, 'jira/issue_details.html', context)
+
+@login_required
 def logoutUser(request):
 	logout(request)
 	return redirect("jira-home")

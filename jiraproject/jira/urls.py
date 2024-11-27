@@ -7,4 +7,5 @@ urlpatterns =[
 	path("create_jira/", views.create_jira, name='create-issue'),
 	path("update_jira/<pk>", views.updateJira, name='update-jira'),
 	path("issues/", views.showIssues, name='show-issues'),
+    path("issue/<pk>", views.showIssueDetail, name='issue-details'),
 ]

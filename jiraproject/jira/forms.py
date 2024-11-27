@@ -13,7 +13,7 @@ class IssueForm(forms.ModelForm):
 	# name = form.CharField(max_length=100, )
 	class Meta:
 		model = JiraIssue
-		fields = ('name', 'detail', 'status', 'assigned_to', 'project_name')
+		fields = ('name', 'detail', 'status', 'assigned_to', 'reported_by','project_name')
 		# choices = ['New', 'InProgress', 'InReview', 'Done']
 		ordered = ['-date_created']
 
@@ -29,6 +29,7 @@ class IssueForm(forms.ModelForm):
 			'detail' : forms.Textarea(attrs={'class' : 'form-control'}),
 			'status' : forms.Select(attrs={'class' : 'form-control'}),
 			'assigned_to' : forms.Select(attrs={'class' : 'form-control'}),
+			'reported_by' : forms.Select(attrs={'class' : 'form-control'}),
 			'project_name' : forms.Select(attrs={'class' : 'form-control'}),
 		}
 

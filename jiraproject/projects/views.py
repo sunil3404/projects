@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import JiraProjectForm
 from .models import JiraProject
+from jira.models import JiraIssue
 
 # Create your views here.
 
@@ -28,4 +29,11 @@ def display_project(request):
 
 def projectDetail(request, id):
     project  = JiraProject.objects.filter(id = id).first()
-    return render(request, 'projects/project_details.html', {'project' : project})
+    issues = JiraIssue.objects.filter(project_name=id)
+
+    print(issues)
+    context = {
+        'project' : project,
+        'issues'  : issues
+    }
+    return render(request, 'projects/project_details.html', context)

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %} 
+{% block content %}
+
+	<div class='container col-10 row-2'>
+		<div class="d-flex justify-content-between">
+			<h3>ISSUES</h3>
+			<a href="{% url 'create-issue' %}"<button class="btn btn-outline-success mx-0 my-1">CREATE</button></a>
+		</div>
+		
+		<hr>
+		{% if issues %}
+			<table class="table table-light table-hover">
+				<thead>
+					<tr>
+						<th scope="col">No</th>
+						<th scope="col">Title</th>
+						<th scope="col">Description</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Updated</th>
+					</tr>
+				</thead>
+				
+					<tbody>
+						{% for issue in issues %}
+							<tr>
+								<td scope="row">{{ issue.pk }}</td>
+								<td><a href="{% url 'show-issues' %}">{{ issue.name }}</a></td>
+								<td>{{ issue.detail }} </td>
+                                <td>{{ issue.date_created }} </td>
+                                <td>{{ issue.date_updated }} </td>
+							</tr>
+						{% endfor %}
+					</tbody>
+			</table>
+			
+		{% else %}
+			<div class="container col-8 row-2 d-flex justify-content-center">
+				<div class="p-2 mx-4, my-4">
+					<h3> No Issues Found</h3>
+					<!-- <a href="{% url 'create-project' %}"<button class="btn btn-info my-2">Create Project</button></a> -->
+				</div> 
+			</div>
+		{% endif %}
+		
+	</div>
+	
+{% endblock %}

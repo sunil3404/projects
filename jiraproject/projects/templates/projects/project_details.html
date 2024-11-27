@@ -28,7 +28,32 @@
             <div class="bg-secondary">
                 <h4 class="text-white p-3 mx-0">ISSUES</h4>
             </div>
-            
+            <div class="container p-1">
+              <table class="table p-2">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Reported By</th>
+                    <th scope="col">Assigned To</th>
+                    <th scope="col">Created Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for issue in issues %}
+                    <tr>
+                      <th scope="row"><a href="{% url 'issue-details' issue.pk %}">{{ issue.name }}</a></th>
+                      <td>{{issue.detail}}</td>
+                      <td>{{issue.status}}</td>
+                      <td>{{issue.assigned_to}}</td>
+                      <td>{{issue.assigned_to}}</td>
+                      <td>{{issue.date_created}}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
         </div>
 
         
