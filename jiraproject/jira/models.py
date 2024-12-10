@@ -26,7 +26,4 @@ class JiraIssue(models.Model):
 		ordering = ['-date_updated']
 
 	def __str__(self):
-		return self.name
-
-
-
+		return self.summary
