@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  border-radius: 0 0 5 5;
+}
+
+.issue-summary {
+    background-color: lightgray;
+    box-shadow: 0.4,0.6,1,1;
+    color: black;
+    font-size:20px;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.issue-summary {
+  width: 50%;
+}
